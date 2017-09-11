@@ -1,0 +1,54 @@
+@font-face {
+	font-family: 'pricedown';
+	src: url(font/pricedown.ttf);
+}
+
+#money{
+	font-family:pricedown;
+	position:absolute;
+	right:1em;
+	top:1em;
+	font-size:2em;
+	color:#96CA2D;
+}
+
+#dirtymoney{
+	font-family:pricedown;
+	position:absolute;
+	right:1em;
+	top:3em;
+	font-size:2em;
+	color:#B9121B;
+}
+
+#bankbalance{
+	font-family:pricedown;
+	position:absolute;
+	right:1em;
+	top:2em;
+	font-size:2em;
+	color:#96CA2D;
+}
+
+#rmvMoney{
+	display:none;
+	font-family:pricedown;
+	position:absolute;
+	right:1em;
+	top:4em;
+	font-size:2em;
+	color:#B9121B;
+}
+
+#addMoney{
+	display:none;
+	font-family:pricedown;
+	position:absolute;
+	right:1em;
+	top:4em;
+	font-size:2em;
+	color:#96CA2D;
+}
+
+
+
