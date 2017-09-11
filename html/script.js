@@ -14,7 +14,7 @@ $(function(){
 			$('#bankbalance').html('💳' + mess.bankbalance + ' $');
 			moneyactuelle = mess.money;
 			dirtymoneyactuelle = mess.dirtymoneyinfo;
-			bankbalanceinfo = mess.bankbalanceinfo;
+			bankbalanceactuelle = mess.bankbalanceinfo;
 		}
 
 		if(typeof mess.moneyinfo !== 'undefined'){
