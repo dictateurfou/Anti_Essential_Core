@@ -29,7 +29,7 @@ function getIdentifier(id)
     return player
 end
 
---return not work dont use this function
+
 function getPlayerInfo(id)
 	local player = getIdentifier(id)
 
@@ -113,7 +113,7 @@ function removeBank(id,rmv)
 		['@identifier'] = player,
 		['@rmv'] = tonumber(rmv)
     })
-    TriggerClientEvent('AntiEssentialCore:rmvMoney',id,rmv)
+    TriggerClientEvent('AntiEssentialCore:rmvBank',id,rmv)
 end
 
 function removeMoneyForBank(id,rmv)
