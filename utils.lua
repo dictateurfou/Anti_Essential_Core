@@ -33,7 +33,7 @@ end
 function getPlayerInfo(id)
 	local player = getIdentifier(id)
 
-	local info = MySQL.fetchAll("SELECT * FROM users WHERE identifier = @identifier", {
+	local info = MySQL.Sync.fetchAll("SELECT * FROM users WHERE identifier = @identifier", {
         ['@identifier'] = player
     })
 
@@ -50,7 +50,7 @@ function getPlayerAllMoney(id)
 	local player = getIdentifier(id)
 
 	if playerInfoMoney[player] == nil then
-		local info = MySQL.fetchAll("SELECT * FROM users WHERE identifier = @identifier", {
+		local info = MySQL.Sync.fetchAll("SELECT * FROM users WHERE identifier = @identifier", {
         ['@identifier'] = player
     	})	
 		playerInfoMoney[player] = {["money"] = info[1].money,["bankbalance"] = info[1].bankbalance,["dirtymoney"] = info[1].dirtymoney}
