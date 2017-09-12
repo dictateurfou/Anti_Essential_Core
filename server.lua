@@ -43,8 +43,15 @@ AddEventHandler('playerConnecting', function(playerName, setKickReason)
 end)
 
 
+
+AddEventHandler('AntiEssentialCore:log', function(log)
+	ecrireLog(log)
+end)
+
 RegisterNetEvent('testMoney')
 AddEventHandler('testMoney', function()
 	local source = source
 	AddMoney(source,2000)
 end)
+
+

@@ -12,7 +12,13 @@ config = {
 	dirtymoney = 0
 }
 
+
+
+
+
 local playerInfoMoney = {}
+
+
 
 
 function getIdentifiant(id)
