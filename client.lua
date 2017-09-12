@@ -30,7 +30,7 @@ SendNUIMessage({
        initialise = true,
        money = money,
        dirtymoney = dirtymoney,
-       bankbalance = bankbalance
+       bankbalanceinfo = bankbalance
 })
 
 end)

@@ -124,23 +124,23 @@ end
 
 function removeMoneyForBank(id,rmv)
 	local player = getIdentifier(id)
-	playerInfoMoney[player].bankbalance = tonumber(playerInfoMoney[player].money - rmv)
+	playerInfoMoney[player].money = tonumber(playerInfoMoney[player].money - rmv)
 	playerInfoMoney[player].bankbalance = tonumber(playerInfoMoney[player].bankbalance + rmv)
 	MySQL.Async.execute("UPDATE users SET bankbalance = bankbalance + @rmv, money = money - @rmv WHERE identifier = @identifier", {
 		['@identifier'] = player,
 		['@rmv'] = tonumber(rmv)
     })
-    TriggerClientEvent('AntiEssentialCore:removeMoneyForBank',id,rmv)
+    TriggerClientEvent('AntiEssentialCore:removeMoneyForBank',id,tonumber(rmv))
 end
 
 function removeBankForMoney(id,rmv)
 	local player = getIdentifier(id)
-	playerInfoMoney[player].bankbalance = tonumber(playerInfoMoney[player].money + rmv)
+	playerInfoMoney[player].money = tonumber(playerInfoMoney[player].money + rmv)
 	playerInfoMoney[player].bankbalance = tonumber(playerInfoMoney[player].bankbalance - rmv)
 	MySQL.Async.execute("UPDATE users SET bankbalance = bankbalance - @rmv, money = money + @rmv WHERE identifier = @identifier", {
 		['@identifier'] = player,
 		['@rmv'] = tonumber(rmv)
     })
-    TriggerClientEvent('AntiEssentialCore:removeBankForMoney',id,rmv)
+    TriggerClientEvent('AntiEssentialCore:removeBankForMoney',id,tonumber(rmv))
 end
 
