@@ -62,7 +62,7 @@ $(function(){
 		}
 
 		if(typeof mess.rmvDirtyMoney !== 'undefined'){
-			dirtymoneyactuelle = Math.round(dirtymoneyactuelle - mess.addDirtyMoney);
+			dirtymoneyactuelle = Math.round(dirtymoneyactuelle - mess.rmvDirtyMoney);
 			$('#dirtymoney').html('💵' + dirtymoneyactuelle + ' $');
 		}
 

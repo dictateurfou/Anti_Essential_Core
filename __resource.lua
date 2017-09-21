@@ -12,3 +12,21 @@ server_script '@mysql-async/lib/MySQL.lua'
 server_script 'utils.lua'
 server_script 'log.lua'
 server_script 'server.lua'
+
+server_exports {
+    'test',
+    'getIdentifier',
+    'getPlayerInfo',
+    'getPlayerAllMoney',
+    'refreshMoney',
+    'removeMoney',
+    'AddMoney',
+    'addBank',
+    'removeBank',
+    'removeDirtyMoney',
+    'addDirtyMoney',
+    'setDirtyMoney',
+    'removeMoneyForBank',
+    'removeBankForMoney',
+    'FetchAllForResult',
+}

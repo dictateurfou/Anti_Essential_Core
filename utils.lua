@@ -6,18 +6,8 @@
 ###################################################
 ]]--
 
-config = {
-	money = 5000,
-	bankbalance = 5000,
-	dirtymoney = 0
-}
 
-
-
-
-
-local playerInfoMoney = {}
-
+-- For use function use exports >> exports['anti_essential_core']:getPlayerInfo(source)
 
 
 
@@ -59,13 +49,28 @@ function getPlayerAllMoney(id)
 		local info = MySQL.Sync.fetchAll("SELECT * FROM users WHERE identifier = @identifier", {
         ['@identifier'] = player
     	})	
+
 		playerInfoMoney[player] = {["money"] = info[1].money,["bankbalance"] = info[1].bankbalance,["dirtymoney"] = info[1].dirtymoney}
 	end
-
+	print(dump(playerInfoMoney[player]))
 	return playerInfoMoney[player]
 
 end
 
+
+function refreshMoney(id)
+	local player = getIdentifier(id)
+	print('refresh de money')
+		local info = MySQL.Sync.fetchAll("SELECT * FROM users WHERE identifier = @identifier", {
+        ['@identifier'] = player
+    	})	
+		print('refresh de money'..info[1].money)
+		playerInfoMoney[player].money = info[1].money
+		playerInfoMoney[player].bankbalance = info[1].bankbalance
+		playerInfoMoney[player].dirtymoney = info[1].dirtymoney
+
+
+end
 
 function createUser(id)
 	local player = getIdentifier(id)
@@ -88,7 +93,18 @@ function removeMoney(id,rmv)
 		['@rmv'] = tonumber(rmv)
     })
 
+	 
     TriggerClientEvent('AntiEssentialCore:rmvMoney',id,rmv)
+end
+
+function FetchAllForResult(table,where,argWhere)
+	local request = MySQL.Sync.execute("SELECT * FROM @table WHERE @where = @argWhere", {
+		['@table'] = tostring(table),
+		['@where'] = tostring(where),
+		['@argWhere'] = tostring(argWhere)
+    })
+
+    return request
 end
 
 function AddMoney(id,add)
@@ -99,6 +115,7 @@ function AddMoney(id,add)
 		['@add'] = tonumber(add)
     })
     print('AddMoney playerid = '..player..' et money '.. add)
+    
     TriggerClientEvent('AntiEssentialCore:addMoney',id,add)
 end
 
@@ -109,6 +126,7 @@ function addBank(id,add)
 		['@identifier'] = player,
 		['@add'] = tonumber(add)
     })
+    
     TriggerClientEvent('AntiEssentialCore:addBank',id,add)
 end
 
@@ -119,7 +137,44 @@ function removeBank(id,rmv)
 		['@identifier'] = player,
 		['@rmv'] = tonumber(rmv)
     })
+    
     TriggerClientEvent('AntiEssentialCore:rmvBank',id,rmv)
+end
+
+function removeDirtyMoney(id,rmv)
+	local player = getIdentifier(id)
+	playerInfoMoney[player].dirtymoney = tonumber(playerInfoMoney[player].dirtymoney - rmv)
+	MySQL.Async.execute("UPDATE users SET money = money - @rmv WHERE identifier = @identifier", {
+		['@identifier'] = player,
+		['@rmv'] = tonumber(rmv)
+    })
+	
+    TriggerClientEvent('AntiEssentialCore:rmvDirtyMoney',id,rmv)
+end
+
+function addDirtyMoney(id,add)
+	local player = getIdentifier(id)
+
+	playerInfoMoney[player].dirtymoney = tonumber(playerInfoMoney[player].dirtymoney + add)
+	MySQL.Async.execute("UPDATE users SET dirtymoney = dirtymoney - @add WHERE identifier = @identifier", {
+		['@identifier'] = player,
+		['@add'] = tonumber(add)
+    })
+	
+    TriggerClientEvent('AntiEssentialCore:rmvDirtyMoney',id,add)
+
+end
+
+function setDirtyMoney(id,nb)
+	local player = getIdentifier(id)
+
+	playerInfoMoney[player].dirtymoney = tonumber(nb)
+	MySQL.Async.execute("UPDATE users SET dirtymoney = @nb WHERE identifier = @identifier", {
+		['@identifier'] = player,
+		['@nb'] = tonumber(nb)
+    })
+	
+    TriggerClientEvent('AntiEssentialCore:setDirtyMoney',id,nb)
 end
 
 function removeMoneyForBank(id,rmv)
@@ -130,6 +185,7 @@ function removeMoneyForBank(id,rmv)
 		['@identifier'] = player,
 		['@rmv'] = tonumber(rmv)
     })
+   
     TriggerClientEvent('AntiEssentialCore:removeMoneyForBank',id,tonumber(rmv))
 end
 
@@ -141,6 +197,7 @@ function removeBankForMoney(id,rmv)
 		['@identifier'] = player,
 		['@rmv'] = tonumber(rmv)
     })
+    
     TriggerClientEvent('AntiEssentialCore:removeBankForMoney',id,tonumber(rmv))
 end
 

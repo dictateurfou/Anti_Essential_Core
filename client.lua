@@ -137,6 +137,16 @@ SendNUIMessage({
 end)
 
 
+RegisterNetEvent('AntiEssentialCore:setDirtyMoney')
+AddEventHandler('AntiEssentialCore:rmvDirtyMoney', function(rslt)
+
+SendNUIMessage({
+	dirtymoneyinfo = rslt
+})
+
+end)
+
+
 
 --Citizen.CreateThread(function ()
 --	while true do

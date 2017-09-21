@@ -6,6 +6,13 @@
 ###################################################
 ]]--
 
+config = {
+	money = 1500,
+	bankbalance = 1500,
+	dirtymoney = 0
+}
+
+playerInfoMoney = {}
 
 function dump(o)
    if type(o) == 'table' then
@@ -20,7 +27,9 @@ function dump(o)
    end
 end
 
-
+function test()
+	print(dump(config))
+end
 
 RegisterServerEvent('AntiEssentialCore:spawn')
 AddEventHandler('AntiEssentialCore:spawn', function()
