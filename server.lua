@@ -7,12 +7,18 @@
 ]]--
 
 config = {
-	money = 1500,
-	bankbalance = 1500,
-	dirtymoney = 0
+	money = 0,
+	bankbalance = 20000,
+	dirtymoney = 0,
+	defaultFood = 50,
+	defaultWater = 50
 }
 
+whiteliste = false
+
 playerInfoMoney = {}
+
+players = {}
 
 function dump(o)
    if type(o) == 'table' then
@@ -38,7 +44,12 @@ AddEventHandler('AntiEssentialCore:spawn', function()
 	print('passe ici')
 	if player[1] ~= nil then
 		print('testmoney'..player[1].money)
-		TriggerClientEvent('AntiEssentialCore:initializeinfo', source,player[1].money,player[1].dirtymoney,player[1].bankbalance)	
+		TriggerClientEvent('AntiEssentialCore:initializeinfo', source,player[1].money,player[1].dirtymoney,player[1].bankbalance)
+		--exemple en dessous
+		TriggerClientEvent('setNeed', source,player[1].food,player[1].water)
+
+	else
+		TriggerClientEvent('setNeed', source,config.defaultFood,config.defaultWater)
 	end
 end)
 
@@ -46,8 +57,19 @@ end)
 AddEventHandler('playerConnecting', function(playerName, setKickReason)
 	local source = source
 	local player = getPlayerInfo(source)
-	if player[1] == nil then
+	local identifier = getIdentifier(source)
+	local playerwl = MySQL.Sync.fetchAll("SELECT * FROM whitelist WHERE identifier = @identifier", {
+        ['@identifier'] = identifier
+    })
+	
+	if player[1] == nil and whiteliste == false then
 		createUser(source)
+	elseif player[1] == nil and playerwl[1] ~= nil and whiteliste == true then
+		createUser(source)
+	elseif whiteliste == true and playerwl[1] == nil then
+		setKickReason("vous n'étes pas whitlister")
+		print("pas whiteliste!")
+		CancelEvent()
 	end
 end)
 
@@ -63,4 +85,11 @@ AddEventHandler('testMoney', function()
 	AddMoney(source,2000)
 end)
 
+
+AddEventHandler('playerDropped', function()
+	local source = source
+	local player = getIdentifier(source)
+    players[player] = nil
+    playerInfoMoney[player] = nil
+end)
 

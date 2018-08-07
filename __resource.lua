@@ -17,6 +17,7 @@ server_exports {
     'test',
     'getIdentifier',
     'getPlayerInfo',
+    'getAllPlayers',
     'getPlayerAllMoney',
     'refreshMoney',
     'removeMoney',
@@ -29,4 +30,11 @@ server_exports {
     'removeMoneyForBank',
     'removeBankForMoney',
     'FetchAllForResult',
+    'sendNotif',
+}
+
+
+exports {
+    'GetVehicleLookByPlayer',
+    'getArroundPed',
 }

@@ -10,7 +10,6 @@
 -- For use function use exports >> exports['anti_essential_core']:getPlayerInfo(source)
 
 
-
 function getIdentifiant(id)
 
   for _, v in ipairs(id) do
@@ -25,6 +24,14 @@ function getIdentifier(id)
     return player
 end
 
+function getAllPlayers()
+	return players
+end
+
+function sendNotif(id,message)
+	TriggerClientEvent('AntiEssentialCore:sendNotif',id,message)
+end
+
 
 function getPlayerInfo(id)
 	local player = getIdentifier(id)
@@ -33,13 +40,42 @@ function getPlayerInfo(id)
         ['@identifier'] = player
     })
 
+	if players[player] == nil then 
+		players[player] = {["source"] = id}
+		print(dump(players))
+	else
+		players[player].source = id
+		print(dump(players))
+	end
 
 	if playerInfoMoney[player] == nil and info[1] ~= nil then
 		playerInfoMoney[player] = {["money"] = info[1].money,["bankbalance"] = info[1].bankbalance,["dirtymoney"] = info[1].dirtymoney}
+	elseif playerInfoMoney[player] ~= nil then
+		playerInfoMoney[player].money = info[1].money
+		playerInfoMoney[player].bankbalance = info[1].bankbalance
+		playerInfoMoney[player].dirtymoney = info[1].dirtymoney
+	end
+	
+    return info
+end
+
+function UpdateMultipleKey(table,tabArgWhere,tabArgUpdate)
+	local stringRequest = "SELECT ALL FROM "..table..""
+
+	local i = 1
+	while tabArgWhere do
+		if i == 1 then
+
+		else
+			
+		end
 	end
 
 
-    return info
+	local request = MySQL.Sync.fetchAll("@request", {
+		['@request'] = tostring(stringRequest)
+    })
+
 end
 
 function getPlayerAllMoney(id)
@@ -144,7 +180,7 @@ end
 function removeDirtyMoney(id,rmv)
 	local player = getIdentifier(id)
 	playerInfoMoney[player].dirtymoney = tonumber(playerInfoMoney[player].dirtymoney - rmv)
-	MySQL.Async.execute("UPDATE users SET money = money - @rmv WHERE identifier = @identifier", {
+	MySQL.Async.execute("UPDATE users SET dirtymoney = dirtymoney - @rmv WHERE identifier = @identifier", {
 		['@identifier'] = player,
 		['@rmv'] = tonumber(rmv)
     })
@@ -156,12 +192,12 @@ function addDirtyMoney(id,add)
 	local player = getIdentifier(id)
 
 	playerInfoMoney[player].dirtymoney = tonumber(playerInfoMoney[player].dirtymoney + add)
-	MySQL.Async.execute("UPDATE users SET dirtymoney = dirtymoney - @add WHERE identifier = @identifier", {
+	MySQL.Async.execute("UPDATE users SET dirtymoney = dirtymoney + @add WHERE identifier = @identifier", {
 		['@identifier'] = player,
 		['@add'] = tonumber(add)
     })
 	
-    TriggerClientEvent('AntiEssentialCore:rmvDirtyMoney',id,add)
+    TriggerClientEvent('AntiEssentialCore:addDirtyMoney',id,add)
 
 end
 

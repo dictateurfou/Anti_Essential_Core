@@ -11,9 +11,9 @@ $(function(){
 		if(typeof mess.initialise !== 'undefined'){
 			$('#money').html('💰' + mess.money + ' $');
 			$('#dirtymoney').html('💵' + mess.dirtymoney + ' $');
-			$('#bankbalance').html('💳' + mess.bankbalance + ' $');
+			$('#bankbalance').html('💳' + mess.bankbalanceinfo + ' $');
 			moneyactuelle = mess.money;
-			dirtymoneyactuelle = mess.dirtymoneyinfo;
+			dirtymoneyactuelle = mess.dirtymoney;
 			bankbalanceactuelle = mess.bankbalanceinfo;
 		}
 
@@ -59,6 +59,7 @@ $(function(){
 		if(typeof mess.addDirtyMoney !== 'undefined'){
 			dirtymoneyactuelle = Math.round(dirtymoneyactuelle + mess.addDirtyMoney);
 			$('#dirtymoney').html('💵' + dirtymoneyactuelle + ' $');
+		
 		}
 
 		if(typeof mess.rmvDirtyMoney !== 'undefined'){

@@ -9,7 +9,8 @@
 	right:1em;
 	top:1em;
 	font-size:2em;
-	color:#96CA2D;
+	color:#ffffff;
+	text-shadow: #000000 1px 1px, #000000 -1px 1px, #000000 -1px -1px, #000000 1px -1px;
 }
 
 #dirtymoney{
@@ -19,6 +20,7 @@
 	top:3em;
 	font-size:2em;
 	color:#B9121B;
+	text-shadow: #000000 1px 1px, #000000 -1px 1px, #000000 -1px -1px, #000000 1px -1px;
 }
 
 #bankbalance{
@@ -27,7 +29,8 @@
 	right:1em;
 	top:2em;
 	font-size:2em;
-	color:#96CA2D;
+	color:#ffffff;
+	text-shadow: #000000 1px 1px, #000000 -1px 1px, #000000 -1px -1px, #000000 1px -1px;
 }
 
 #rmvMoney{
