@@ -1,5 +1,7 @@
 # Anti_Essential_Core
 
+this mod is discontinued because fivem is roten , im have merge in rageMP
+
 usage
 
     exports['anti_essential_core']:getIdentifier(source)
